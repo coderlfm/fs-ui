@@ -8,7 +8,7 @@ import React, {
 import { Table, message } from 'antd';
 import 'antd/dist/antd.css';
 
-import Form from '../pro-form';
+import { Form } from 'fs-ui';
 import ProTableHeader from './Pro-table-header';
 // import request from '../../services/request'
 
@@ -25,7 +25,7 @@ function onChange(pagination, filters, sorter, extra) {
   console.log('params', pagination, filters, sorter, extra);
 }
 
-export default memo(function(props: propsType): React.ReactElement {
+export default memo(function (props: propsType): React.ReactElement {
   const {
     tabs,
     title,
@@ -160,8 +160,8 @@ export default memo(function(props: propsType): React.ReactElement {
     const secondValue = reqData.search[tabs.secondTabs?.key]
       ? reqData.search[tabs.secondTabs?.key]
       : tabs.secondTabs?.data.find(
-          item => item.key === tabs.secondTabs.defaultKey,
-        )?.key;
+        item => item.key === tabs.secondTabs.defaultKey,
+      )?.key;
     const reqValue = {
       ...reqData,
       search: { [tabs.secondTabs?.key]: secondValue, [key]: value },
@@ -186,7 +186,7 @@ export default memo(function(props: propsType): React.ReactElement {
     const firstTabsValue = reqData.search[tabs.firstTabs.key]
       ? reqData.search[tabs.firstTabs.key]
       : tabs.firstTabs.data.find(item => item.key === tabs.firstTabs.defaultKey)
-          ?.key;
+        ?.key;
     const reqValue = {
       ...reqData,
       search: { [tabs.firstTabs.key]: firstTabsValue, [key]: value },

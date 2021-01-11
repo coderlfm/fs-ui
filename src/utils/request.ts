@@ -32,9 +32,9 @@ export function request(config) {
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXNzYWdlIjp7ImFjY291bnRfaWQiOiIxIiwidG9rZW5fZmxhZyI6ImFzZGZhd2VycWUifSwiZXhwIjoxNjExMTMwMjg0fQ.BuJJyUuKaaixpbgd7gggV3aU-oPavNUKcS8239k0aj0';
       } else {
         //登录校验
-        if (!res.url.includes('login/login')) {
-          window.location.replace('/#/login/');
-        }
+        // if (!res?.url.includes('login/login')) {
+        //   window.location.replace('/#/login/');
+        // }
       }
       return res;
     },

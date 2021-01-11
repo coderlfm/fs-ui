@@ -1,10 +1,9 @@
 import React, { memo } from 'react';
-import Table from '../index';
+import { Table } from 'fs-ui';
 import { Button } from 'antd';
-import request from '@/utils/request.js';
+import request from '../../utils/request';
 import { propsType, tabsType } from '../type';
 
-// export default () => <Table title="table" request={request} />;
 
 // 表单配置
 const formProps = {
@@ -48,12 +47,12 @@ const preSubmit = async values => {
   return Promise.resolve(values);
 };
 
-export default memo(function() {
+export default memo(function () {
   const tabs: tabsType = {
     firstTabs: {
       key: 'channel',
       onChange: false,
-      defaultKey: 1,
+      defaultKey: '1',
       data: [
         {
           label: '全部',
@@ -77,7 +76,7 @@ export default memo(function() {
       key: 'category',
       onChange: false,
       title: '商品类目',
-      defaultKey: 1,
+      defaultKey: '2',
       defaultOpen: true,
       col: {},
       data: [

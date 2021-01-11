@@ -40,7 +40,7 @@ interface tabsDataType {
 }
 
 interface tabsItemType {
-  defaultKey: string | undefined | number;
+  defaultKey: string | undefined ;
 
   onChange?:
     | undefined
