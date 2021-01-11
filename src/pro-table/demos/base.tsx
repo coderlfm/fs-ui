@@ -56,19 +56,19 @@ export default memo(function () {
       data: [
         {
           label: '全部',
-          key: 1,
+          key: '1',
         },
         {
           label: '频道名称1',
-          key: 2,
+          key: '2',
         },
         {
           label: '频道名称2',
-          key: 3,
+          key: '3',
         },
         {
           label: '频道名称3',
-          key: 4,
+          key: '4',
         },
       ],
     },
@@ -82,31 +82,31 @@ export default memo(function () {
       data: [
         {
           label: '全部',
-          key: 1,
+          key: '1',
         },
         {
           label: '类目一',
-          key: 2,
+          key: '2',
         },
         {
           label: '类目二',
-          key: 3,
+          key: '3',
         },
         {
           label: '类目三',
-          key: 4,
+          key: '4',
         },
         {
           label: '类目四',
-          key: 5,
+          key: '5',
         },
         {
           label: '类目五',
-          key: 6,
+          key: '6',
         },
         {
           label: '类目六',
-          key: 7,
+          key: '7',
         },
       ],
     },

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import Form from '../index';
+import { Form } from 'fs-ui';
+
 
 // 表单配置
 const formProps = {
@@ -34,7 +35,7 @@ const formProps = {
   },
 };
 
-export default memo(function() {
+export default memo(function () {
   /**
    * 过滤搜索值
    * @param {Object} values

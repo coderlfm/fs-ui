@@ -1,3 +1,5 @@
+import '../public/css/reset_antd.css'
+
 export { default as Foo } from './Foo';
 export { default as FSTable } from './pro-table';
 export { default as Table } from './pro-table';

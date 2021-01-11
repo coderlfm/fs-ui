@@ -1,0 +1,12 @@
+/* // 激活标签 */
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1890ff !important;
+  font-weight: 600 !important;
+}
+
+/* // 底部横条 */
+.ant-tabs-ink-bar {
+  height: 4px!important;
+  background: linear-gradient(315deg, #35fcff 0%, #0443fc 100%)!important;
+  border-radius: 2px!important;
+}
