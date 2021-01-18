@@ -17,10 +17,29 @@
 @disabled:#bdbdbd;
 @disabled-thin:#bdbdbd;
 
+@primary-1: rgba(24, 144, 255, 0.9);
+@primary-2: rgba(24, 144, 255, 0.8);
+@primary-3: rgba(24, 144, 255, 0.7);
+@primary-4: rgba(24, 144, 255, 0.6);
+@primary-5: rgba(24, 144, 255, 0.5);
+@primary-6: rgba(24, 144, 255, 0.4);
+@primary-7: rgba(24, 144, 255, 0.3);
+@primary-7: rgba(24, 144, 255, 0.2);
+@primary-7: rgba(24, 144, 255, 0.1);
+
 body {
 
   button :not([class = ant-btn-circle]) {
     border-radius: 4px !important;
+  }
+
+   button.ant-btn{
+   
+    svg{
+      width: 16px;
+      height: 16px;
+    }
+
   }
 
   //警告按钮
@@ -89,6 +108,78 @@ body {
       color: @disabled;
     }
   }
+
+  //不同按钮大小样式
+  .ant-btn{
+    padding: 6px 9px;
+    line-height: 1;
+  }
+  .ant-btn-sm{
+    padding: 0 15px;
+  }
+  .ant-btn-lg{
+    padding: 6px 16px;
+  }
   
-  //圆形
+  // 禁用input框样式
+  .ant-input[disabled]{
+    border: 1px solid rgb(245, 245, 245);
+  }
+  
+  
+  // 单选框样式
+  .ant-radio-wrapper{ //未选中外圈样式的修改
+    border-color: #A4A7A9;
+    border-radius: 50%;
+  }
+  .ant-radio-wrapper.ant-radio-wrapper-checked{//选中外圈样式的修改
+    border-color: red;
+
+    .ant-radio-inner{
+      background-color: @primary;
+      
+      &::after{
+        background-color: #fff;
+      }
+    }
+
+    .ant-radio-disabled .ant-radio-inner {
+      background-color: #E9E9E9;
+      &::after{
+        background-color: #D9D9D9;
+      }
+    }
+  }
+  .ant-radio-disabled .ant-radio-inner {
+    background-color: #E9E9E9;
+    &::after{
+      background-color: #D9D9D9;
+    }
+  }
+
+
+  // 多选框样式
+  .ant-checkbox-indeterminate{
+    .ant-checkbox-inner{
+      background-color:@primary;
+      border-color: @primary;
+
+      &::after{
+        height: 2px;
+        background-color: #fff;
+      }
+    }
+  }
+  
+  // 选择器后缀图标
+  .ant-select-arrow{
+    .anticon{
+      color: @primary-5;
+    }
+    .anticon-caret-down{
+      color: @primary;
+    }
+  }
+  
+
 }

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Table } from 'fs-ui';
+import { Table } from '@/index';
 import { Button } from 'antd';
 import request from '../../utils/request';
 import { propsType, tabsType } from '../type';

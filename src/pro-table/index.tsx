@@ -8,7 +8,7 @@ import React, {
 import { Table, message } from 'antd';
 import 'antd/dist/antd.css';
 
-import { Form } from 'fs-ui';
+import { Form } from '@/index';
 import ProTableHeader from './Pro-table-header';
 // import request from '../../services/request'
 
