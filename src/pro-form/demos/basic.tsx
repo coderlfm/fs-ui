@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Form } from '@/index';
+import { Form } from 'fs-pro-ui';
 
 
 // 表单配置

@@ -2,7 +2,6 @@ import '../public/css/reset_antd.less'
 import '../public/css/baseLayout.less'
 
 
-export { default as Foo } from './Foo';
 export { default as FSTable } from './pro-table';
 export { default as Table } from './pro-table';
 export { default as ProTable } from './pro-table';
