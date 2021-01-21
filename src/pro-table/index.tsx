@@ -5,14 +5,14 @@ import React, {
   useLayoutEffect,
   useRef,
 } from 'react';
-import { Table, message } from 'antd';
-import 'antd/dist/antd.css';
+import { Table, message, ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 
 import { Form } from '@/index';
 import ProTableHeader from './Pro-table-header';
-// import request from '../../services/request'
 
 import { tableDataType, reqType, propsType } from './type';
+import 'antd/dist/antd.css';
 import './index.less';
 
 const tableDataDefault: tableDataType = {
@@ -214,34 +214,36 @@ export default memo(function (props: propsType): React.ReactElement {
   // console.log('tabs',tabs);
 
   return (
-    <div className="pro-table-wrap">
-      <ProTableHeader
-        title={title}
-        tabs={tabs}
-        firstTabsChange={firstTabsChange}
-        secondTabsChange={secondTabsChange}
-      />
-      {props.formProps ? (
-        <Form
-          formProps={props.formProps}
-          submit={submit}
-          circle={tabs && tabs.secondTabs ? false : true}
+    <ConfigProvider locale={zhCN}>
+      <div className="pro-table-wrap">
+        <ProTableHeader
+          title={title}
+          tabs={tabs}
+          firstTabsChange={firstTabsChange}
+          secondTabsChange={secondTabsChange}
         />
-      ) : null}
-      <div className="pro-table-body-wrap">
-        {tableTools && renderTools(tableTools, selectRows)}
-        <Table
-          columns={props.columns}
-          dataSource={tableData.list}
-          rowKey={props.rowKey}
-          rowSelection={props.row && rowSelection}
-          size="middle"
-          onChange={onChange}
-          loading={loading}
-          pagination={pagination}
-        />
+        {props.formProps ? (
+          <Form
+            formProps={props.formProps}
+            submit={submit}
+            circle={tabs && tabs.secondTabs ? false : true}
+          />
+        ) : null}
+        <div className="pro-table-body-wrap">
+          {tableTools && renderTools(tableTools, selectRows)}
+          <Table
+            columns={props.columns}
+            dataSource={tableData.list}
+            rowKey={props.rowKey}
+            rowSelection={props.row && rowSelection}
+            size="middle"
+            onChange={onChange}
+            loading={loading}
+            pagination={pagination}
+          />
+        </div>
       </div>
-    </div>
+    </ConfigProvider>
   );
 });
 

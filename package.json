@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "fs-pro-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -21,8 +20,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/umijs/dumi-template",
-    "branch": "main"
+    "url": "https://github.com/coderlfm/fs-ui",
+    "branch": "master"
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
