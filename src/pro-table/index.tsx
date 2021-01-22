@@ -93,10 +93,16 @@ export default memo(function (props: propsType): React.ReactElement {
   const initData = async (data = reqData) => {
     !loading && setLoading(true);
 
+    if (typeof preSubmit === 'function') {
+      const result = await preSubmit(data);
+      // 防止preSubmit没有返回数据
+      data = result || data;
+    }
+    
     const res = await request({
       url: props.url,
       method: 'post',
-      data: { ...reqData, ...requestData },
+      data,
     });
     if (res.code === 0) {
       setTableData({ ...tableData, ...res.data });

@@ -150,14 +150,14 @@ export default memo(function () {
     <div>
       <Table
         request={request}
-        url="product/list"
+        url="order/list"
         title="京东商品"
-        requestData={{ section_id: 2 }}
+        requestData={{ search: { section_id: 2 } }}
         tabs={tabs}
         tableTools={tableTools}
         formProps={formProps}
         columns={columns}
-        rowKey="product_id"
+        rowKey="order_id"
         preSubmit={preSubmit}
       />
     </div>

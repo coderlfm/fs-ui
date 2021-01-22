@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = 'http://47.108.88.248:9601/api/v1/admin';
+export const BASE_URL = 'http://47.108.88.248:9601/api/v1/team';
 export const TIMEOUT = 10000;
 
 export function request(config) {
@@ -29,7 +29,7 @@ export function request(config) {
       ) {
         res.headers['Authorization'] =
           'Bearer ' +
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXNzYWdlIjp7ImFjY291bnRfaWQiOiIxIiwidG9rZW5fZmxhZyI6ImFzZGZhd2VycWUifSwiZXhwIjoxNjExMTMwMjg0fQ.BuJJyUuKaaixpbgd7gggV3aU-oPavNUKcS8239k0aj0';
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXNzYWdlIjp7InRlYW1fdXNlcl9pZCI6IjEiLCJ0b2tlbl9mbGFnIjoiYXNkZmF3ZXJxZSJ9LCJleHAiOjE2MTM4MTkzOTh9.pVnGLtG9LE56_AGPnRn9u_7uJ8w0lg0No-hbVdG1jII';
       } else {
         //登录校验
         // if (!res?.url.includes('login/login')) {
