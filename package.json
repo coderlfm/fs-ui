@@ -1,6 +1,6 @@
 {
   "name": "fs-pro-ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -31,6 +31,12 @@
       "prettier --parser=typescript --write"
     ]
   },
+  "keywords": [
+    "react",
+    "antd",
+    "ui",
+    "pro-ui"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "antd": "^4.10.0",
