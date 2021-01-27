@@ -10,7 +10,3 @@ export { default as Form } from './pro-form';
 
 export { default as Layout } from './layout/layout'
 export { default as PageContainer } from './layout/page-container'
-
-// export type {
-//     Form
-// }

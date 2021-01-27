@@ -32,7 +32,6 @@ export default memo(function (props: propsType): React.ReactElement {
     tableTools,
     preSubmit,
     requestData,
-    getAllParams,
     request,
   } = props;
 
@@ -45,7 +44,6 @@ export default memo(function (props: propsType): React.ReactElement {
   };
 
   const tabsReqInit: null | any = useRef(null);
-  const tabsReqFlag: null | any = useRef(false);
 
   const [tableData, setTableData] = useState(tableDataDefault); // 表格数据
   const [selectRows, setSelectRows] = useState([]); // 被选中的行数据对象数组
@@ -59,10 +57,7 @@ export default memo(function (props: propsType): React.ReactElement {
   useEffect(() => {
     setLoading(true);
     initData();
-    if (typeof getAllParams === 'function') {
-      console.log('reqData变化了');
-      getAllParams(reqData);
-    }
+
   }, [reqData, props.reset]);
 
   useEffect(() => {
@@ -98,7 +93,7 @@ export default memo(function (props: propsType): React.ReactElement {
       // 防止preSubmit没有返回数据
       data = result || data;
     }
-    
+
     const res = await request({
       url: props.url,
       method: 'post',
@@ -113,6 +108,7 @@ export default memo(function (props: propsType): React.ReactElement {
     }
     setLoading(false);
   };
+
   /**
    * 表单搜索
    * 此处可过滤数据并可等待其中异步操作，所以此过滤需要返回一个promise
@@ -125,11 +121,11 @@ export default memo(function (props: propsType): React.ReactElement {
     });
     let submitValue = { ...reqData, search, page: 1 };
     // console.log('submitValue', submitValue);
-    if (typeof preSubmit === 'function') {
-      const result = await preSubmit(submitValue);
-      // 防止preSubmit没有返回数据
-      submitValue = result || submitValue;
-    }
+    // if (typeof preSubmit === 'function') {
+    //   const result = await preSubmit(submitValue);
+    //   // 防止preSubmit没有返回数据
+    //   submitValue = result || submitValue;
+    // }
     setReqData(submitValue);
   };
 
@@ -163,18 +159,18 @@ export default memo(function (props: propsType): React.ReactElement {
    */
   const firstTabsChange = (key, value) => {
     // 默认为当前选中的值若无手动选中，则为二级tabs默认值
-    const secondValue = reqData.search[tabs.secondTabs?.key]
-      ? reqData.search[tabs.secondTabs?.key]
-      : tabs.secondTabs?.data.find(
-        item => item.key === tabs.secondTabs.defaultKey,
+    const secondValue = reqData.search[tabs?.secondTabs?.key || '']
+      ? reqData.search[tabs?.secondTabs?.key || '']
+      : tabs?.secondTabs?.data.find(
+        item => item.key === tabs?.secondTabs.defaultKey,
       )?.key;
     const reqValue = {
       ...reqData,
-      search: { [tabs.secondTabs?.key]: secondValue, [key]: value },
+      search: { [tabs?.secondTabs?.key || '']: secondValue, [key]: value },
     };
     // const reqValue = { ...reqData, search: { [key]: value } }
-    if (typeof tabs.firstTabs.onChange === 'function') {
-      const result = tabs.firstTabs.onChange(key, value, reqValue);
+    if (typeof tabs?.firstTabs.onChange === 'function') {
+      const result = tabs?.firstTabs.onChange(key, value, reqValue);
       result ? setReqData({ ...result }) : setReqData(reqValue);
       return;
     }
@@ -189,16 +185,16 @@ export default memo(function (props: propsType): React.ReactElement {
    */
   const secondTabsChange = (key, value) => {
     // 默认为当前选中的值若无手动选中，则为一级tabs默认值
-    const firstTabsValue = reqData.search[tabs.firstTabs.key]
-      ? reqData.search[tabs.firstTabs.key]
-      : tabs.firstTabs.data.find(item => item.key === tabs.firstTabs.defaultKey)
+    const firstTabsValue = reqData.search[tabs?.firstTabs.key || '']
+      ? reqData.search[tabs?.firstTabs.key || '']
+      : tabs?.firstTabs.data.find(item => item.key === tabs?.firstTabs.defaultKey)
         ?.key;
     const reqValue = {
       ...reqData,
-      search: { [tabs.firstTabs.key]: firstTabsValue, [key]: value },
+      search: { [tabs?.firstTabs.key || '']: firstTabsValue, [key]: value },
     };
-    if (typeof tabs.secondTabs.onChange === 'function') {
-      const result = tabs.secondTabs.onChange(key, value, reqValue);
+    if (typeof tabs?.secondTabs.onChange === 'function') {
+      const result = tabs?.secondTabs.onChange(key, value, reqValue);
       result ? setReqData({ ...result }) : setReqData(reqValue);
       return;
     }
@@ -262,7 +258,7 @@ const renderTools = (tableTools: propsType['tableTools'], selectRows) => {
   return (
     <div className="pro-table-tools">
       <div className="pro-table-tools-title">
-        {tableTools.title ? (
+        {tableTools?.title ? (
           <>
             <span></span>
             <span>{tableTools.title}</span>
@@ -270,7 +266,7 @@ const renderTools = (tableTools: propsType['tableTools'], selectRows) => {
         ) : null}
       </div>
       <div className="pro-table-tools-actions-wrap">
-        {tableTools.actions.map((item, index) => {
+        {tableTools?.actions.map((item, index) => {
           return <div key={index}>{item?.render(selectRows)}</div>;
         })}
       </div>

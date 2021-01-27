@@ -40,16 +40,16 @@ interface tabsDataType {
 }
 
 interface tabsItemType {
-  defaultKey: string | undefined ;
+  defaultKey: string | undefined;
 
   onChange?:
-    | undefined
-    | ((
-        key: string | number | undefined,
-        value: string | number | undefined,
-        reqData: string | number | undefined,
-      ) => any)
-    | boolean;
+  | undefined
+  | ((
+    key: string | number | undefined,
+    value: string | number | undefined,
+    reqData: string | number | undefined,
+  ) => any)
+  | boolean;
 
   title?: string;
 
@@ -80,46 +80,72 @@ interface toolType {
 }
 
 export interface propsType {
-  // 标题
+  /**
+   *
+   * @description 标题
+   */
   title: string;
 
-  // 行配置
+  /**
+   * 行配置
+   */ 
   columns: ColumnsType<object>;
 
-  // tabs配置
-  tabs: tabsType;
+  /**
+   * tabs配置
+   */ 
+  tabs?: tabsType;
 
-  // 表单配置
+  /**
+   * 表单配置
+   */ 
   formProps: any;
 
-  // 工具栏配置
-  tableTools: {
-    title: string;
-    actions: Array<toolType>;
+  /**
+   * 工具栏配置
+   */ 
+  tableTools?: {
+    /**
+     * 工具栏标题
+     */
+    title: string,
+    /**
+     * 工具栏按钮
+     */
+    actions: Array<toolType>,
   };
 
   request: any;
 
-  // 搜索前过滤
-  preSubmit: (values: any) => any;
+  /**
+   * 搜索前过滤
+   */ 
+  preSubmit?: (values: any) => any;
 
-  // 请求地址
+  /**
+   * 请求地址
+   */ 
   url: string;
 
-  // 自定义请求数据
-  requestData: any;
+  /**
+   * 自定义请求数据
+   */ 
+  requestData?: any;
 
-  // 是否开启选中
+  /**
+   * 是否开启选中
+   */ 
   row?: undefined;
 
-  // 唯一key
+  /**
+   * 唯一key
+   */ 
   rowKey: string | (() => string);
 
-  // 刷新
+  /**
+   * 刷新
+   */ 
   reset?: boolean;
 
-  getAllParams?: (values: any) => any;
 
-  // 板块id
-  // section_id: number
 }

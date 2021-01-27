@@ -15,4 +15,7 @@ group:
 代码示例:
 <code src="./demos/base.tsx">
 
+<API></API>
+
+
 [更多技巧](https://d.umijs.org/guide/demo-principle)

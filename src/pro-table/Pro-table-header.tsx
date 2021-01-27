@@ -9,7 +9,7 @@ const { TabPane } = Tabs;
 const { useBreakpoint } = Grid;
 interface HeaderProps {
   title: string;
-  tabs: tabsType;
+  tabs?: tabsType;
   firstTabsChange: (
     key: string | number | undefined,
     value: string | number | undefined,
