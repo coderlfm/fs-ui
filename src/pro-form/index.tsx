@@ -8,6 +8,7 @@ import {
   Col,
   DatePicker,
   TimePicker,
+  Radio,
 } from 'antd';
 import './index.less';
 
@@ -140,6 +141,13 @@ const renderForm = search => {
           </Select>
         );
         break;
+        case 'radio':
+          ele = (<Radio.Group {...searchProps}>
+              {
+                  searchProps.enum.map(item => <Radio value={item.value} key={item.value}>{item.label}</Radio>)
+              }
+          </Radio.Group>)
+          break;
 
       case 'rangepicker':
         ele = <RangePicker allowClear {...searchProps} />;

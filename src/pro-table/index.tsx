@@ -120,12 +120,7 @@ export default memo(function (props: propsType): React.ReactElement {
       !search[item] && delete search[item];
     });
     let submitValue = { ...reqData, search, page: 1 };
-    // console.log('submitValue', submitValue);
-    // if (typeof preSubmit === 'function') {
-    //   const result = await preSubmit(submitValue);
-    //   // 防止preSubmit没有返回数据
-    //   submitValue = result || submitValue;
-    // }
+
     setReqData(submitValue);
   };
 
@@ -292,13 +287,14 @@ const getTabsInitReq = tabs => {
     tabsReq = { [tabs.firstTabs?.key]: tabs.firstTabs?.data[0]?.key };
   }
 
+  
   //二级tabs默认请求数据
   if (tabs.secondTabs?.defaultKey !== null) {
     tabsReq = {
       ...tabsReq,
       [tabs.secondTabs?.key]: tabs.secondTabs?.data.find(
         item => item.key === tabs.secondTabs.defaultKey,
-      )?.key,
+        )?.key,
     };
   } else {
     tabsReq = {
@@ -306,13 +302,14 @@ const getTabsInitReq = tabs => {
       [tabs.secondTabs?.key]: tabs.secondTabs?.data[0]?.key,
     };
   }
-
+  
   /**
    * 过滤空值
    */
   Object.keys(tabsReq).forEach(item => {
     !tabsReq[item] && delete tabsReq[item];
   });
+  console.log('tabs.secondTabs?.defaultKey: ', tabs.secondTabs?.defaultKey,tabsReq);
   return tabsReq;
 };
 

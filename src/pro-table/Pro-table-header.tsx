@@ -1,12 +1,11 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Tabs, Button, Row, Col, Grid } from 'antd';
+import { Tabs, Button, Row } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import { tabsType } from './type';
 import './pro-table-header.less';
 
 const { TabPane } = Tabs;
-const { useBreakpoint } = Grid;
 interface HeaderProps {
   title: string;
   tabs?: tabsType;
@@ -20,42 +19,22 @@ interface HeaderProps {
   ) => void;
 }
 
-const colSettingDefault = { xs: 12, sm: 8, md: 8, lg: 6, xl: 3, xxl: 2 }; // 列默认配置
-
-export default memo(function(props: HeaderProps) {
-  const screens = useBreakpoint();
+export default memo(function (props: HeaderProps) {
   const { title, tabs, firstTabsChange, secondTabsChange } = props;
 
+  const [firstTab, setFirstTab] = useState(tabs?.firstTabs?.defaultKey || '1'); // 一级菜单active
   const [secondTab, setSecondTab] = useState(tabs?.secondTabs?.defaultKey || 1); // 二级菜单active
   const [rotate, setRotate] = useState(tabs?.secondTabs?.defaultOpen ? 0.5 : 0); // 旋转角度
-  const [hiddenNum, setHiddenNum] = useState(8); // 隐藏条数
-  const [colSetting] = useState({
-    ...colSettingDefault,
-    ...tabs?.secondTabs?.col,
-  }); // 列配置
-
-  const screenlist = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs']; // 响应尺寸
 
   useEffect(() => {
-    setHiddenNum(computeHideNum(screens));
-  }, [screens]);
-
-  /**
-   * 计算隐藏行
-   * @param screens 当前屏幕尺寸
-   */
-  const computeHideNum = screens => {
-    let hideNum = 8;
-
-    for (let i = 0; i < screenlist.length; i++) {
-      if (screens[screenlist[i]]) {
-        hideNum = 24 / colSetting[screenlist[i]];
-        break;
+    /// 实现动态修改 二级defaultKey 后不刷新的问题
+      if(tabs?.secondTabs?.defaultKey !== secondTab){
+        setSecondTab(tabs?.secondTabs.defaultKey || 1);// 避免ts报错
       }
-    }
-
-    return hideNum;
-  };
+      if(tabs?.firstTabs?.defaultKey !== secondTab){
+        setFirstTab(tabs?.firstTabs.defaultKey || '1');// 避免ts报错
+      }
+  }, [tabs])
 
   /**
    * 一级tabs切换
@@ -67,7 +46,10 @@ export default memo(function(props: HeaderProps) {
       value = parseFloat(value);
     }
     firstTabsChange(key, value);
-    console.log('一级切换111', tabs?.secondTabs?.defaultKey);
+    setFirstTab(value+'');
+    // console.log(value);
+    
+    // console.log('一级切换111', tabs?.secondTabs?.defaultKey);
     setSecondTab(tabs?.secondTabs?.defaultKey || 1);
   };
 
@@ -80,12 +62,15 @@ export default memo(function(props: HeaderProps) {
     setSecondTab(value);
   };
 
+  // console.log('tabs.firstTabs.defaultKey', tabs?.firstTabs.defaultKey);
+  
   return (
     <header className="pro-table-header-wrap">
       <h2>{title || ''}</h2>
       {tabs && tabs.firstTabs && (
         <section className="first">
           <Tabs
+            activeKey={firstTab}
             defaultActiveKey={tabs.firstTabs.defaultKey}
             onChange={e => tabFirstTabsChange(tabs.firstTabs.key, e)}
           >
@@ -99,50 +84,42 @@ export default memo(function(props: HeaderProps) {
       {tabs && tabs.secondTabs && (
         <section className="second">
           <span>{tabs.secondTabs.title}：</span>
-          <Row className="second-content" gutter={[0, 16]}>
+          <Row  className={rotate ? "second-content second-content-active" : "second-content"} gutter={[0, 16]}>
             {tabs.secondTabs.data.map((item, index) => {
               if (rotate) {
                 return (
-                  <Col key={item.key} {...colSetting}>
-                    <Button
-                      className="second-btn"
-                      size="small"
-                      type={secondTab === item.key ? 'primary' : 'text'}
-                      onClick={() =>
-                        tabSecondTabsChange(tabs.secondTabs.key, item.key)
-                      }
-                    >
-                      {item.label}
-                    </Button>
-                  </Col>
+                  <Button
+                    className="second-btn"
+                    size="small"
+                    type={secondTab === item.key ? 'primary' : 'text'}
+                    onClick={() =>
+                      tabSecondTabsChange(tabs.secondTabs.key, item.key)
+                    }
+                  >
+                    {item.label}
+                  </Button>
                 );
               } else {
-                if (index < hiddenNum) {
-                  return (
-                    <Col key={item.key} {...colSetting}>
-                      <Button
-                        className="second-btn"
-                        size="small"
-                        type={secondTab === item.key ? 'primary' : 'text'}
-                        onClick={() =>
-                          tabSecondTabsChange(tabs.secondTabs.key, item.key)
-                        }
-                      >
-                        {item.label}
-                      </Button>
-                    </Col>
-                  );
-                } else {
-                  return null;
-                }
+                return (
+                  <Button
+                    className="second-btn"
+                    size="small"
+                    type={secondTab === item.key ? 'primary' : 'text'}
+                    onClick={() =>
+                      tabSecondTabsChange(tabs.secondTabs.key, item.key)
+                    }
+                  >
+                    {item.label}
+                  </Button>
+                );
               }
             })}
           </Row>
 
           <div className="toggle-wrap">
-            <div>
+            {/* <div>
               <Button type="link">编辑</Button>
-            </div>
+            </div> */}
             <div className="toggle-item">
               <Button
                 type="link"

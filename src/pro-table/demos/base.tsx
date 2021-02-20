@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState  } from 'react';
 import { Table } from 'fs-pro-ui';
 import { Button } from 'antd';
 import request from '../../utils/request';
@@ -48,11 +48,24 @@ const preSubmit = async values => {
 };
 
 export default memo(function () {
+
+  const [firstfaultKey, setFirstDefaultKey] = useState('');
+  const [secondDefaultKey, setSecondDefaultKey] = useState('');
+
+  useEffect(()=>{
+    setTimeout(() => {
+      setFirstDefaultKey('4');
+    }, 1000);
+  },[])
+  
+  // console.log('secondDefaultKey', secondDefaultKey);
+  
+  
   const tabs: tabsType = {
     firstTabs: {
       key: 'channel',
       onChange: false,
-      defaultKey: '1',
+      defaultKey: firstfaultKey,
       data: [
         {
           label: '全部',
@@ -76,7 +89,7 @@ export default memo(function () {
       key: 'category',
       onChange: false,
       title: '商品类目',
-      defaultKey: '2',
+      defaultKey: secondDefaultKey,
       defaultOpen: true,
       col: {},
       data: [
@@ -89,7 +102,7 @@ export default memo(function () {
           key: '2',
         },
         {
-          label: '类目二',
+          label: '类目二435646623522',
           key: '3',
         },
         {
@@ -97,7 +110,7 @@ export default memo(function () {
           key: '4',
         },
         {
-          label: '类目四',
+          label: '类目四3425235',
           key: '5',
         },
         {
@@ -105,7 +118,7 @@ export default memo(function () {
           key: '6',
         },
         {
-          label: '类目六',
+          label: '类目六235632624643',
           key: '7',
         },
       ],

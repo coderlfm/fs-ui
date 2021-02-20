@@ -49,7 +49,7 @@ export interface propsTpe {
   url: string;
 
   // 唯一key
-  rowKey: string | (() => string);
+  rowKey: string | ((record:object) => string);
 
   // 刷新
   reset: boolean;
