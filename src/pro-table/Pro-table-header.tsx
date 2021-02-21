@@ -42,7 +42,7 @@ export default memo(function (props: HeaderProps) {
    */
   const tabFirstTabsChange = (key, value) => {
     //该处为解决 antd 默认将 activeKey转成string型
-    if (typeof tabs?.secondTabs?.defaultKey === 'number') {
+    if (typeof tabs?.firstTabs?.defaultKey === 'number') {
       value = parseFloat(value);
     }
     firstTabsChange(key, value);
