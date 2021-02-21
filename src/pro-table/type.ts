@@ -66,8 +66,8 @@ interface tabsItemType {
 }
 
 export interface tabsType {
-  firstTabs: tabsItemType;
-  secondTabs: tabsItemType;
+  firstTabs?: tabsItemType ;
+  secondTabs?: tabsItemType  ;
 }
 
 /**

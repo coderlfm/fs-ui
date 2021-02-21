@@ -28,10 +28,10 @@ export default memo(function (props: HeaderProps) {
 
   useEffect(() => {
     /// 实现动态修改 二级defaultKey 后不刷新的问题
-      if(tabs?.secondTabs?.defaultKey !== secondTab){
+      if(tabs?.secondTabs && tabs?.secondTabs?.defaultKey !== secondTab){
         setSecondTab(tabs?.secondTabs.defaultKey || 1);// 避免ts报错
       }
-      if(tabs?.firstTabs?.defaultKey !== secondTab){
+      if(tabs?.firstTabs && tabs?.firstTabs?.defaultKey !== secondTab){
         setFirstTab(tabs?.firstTabs.defaultKey || '1');// 避免ts报错
       }
   }, [tabs])
@@ -72,7 +72,7 @@ export default memo(function (props: HeaderProps) {
           <Tabs
             activeKey={firstTab}
             defaultActiveKey={tabs.firstTabs.defaultKey}
-            onChange={e => tabFirstTabsChange(tabs.firstTabs.key, e)}
+            onChange={e => tabFirstTabsChange(tabs?.firstTabs?.key, e)}
           >
             {tabs.firstTabs.data.map(item => (
               <TabPane tab={item.label} key={item.key} />
@@ -93,7 +93,7 @@ export default memo(function (props: HeaderProps) {
                     size="small"
                     type={secondTab === item.key ? 'primary' : 'text'}
                     onClick={() =>
-                      tabSecondTabsChange(tabs.secondTabs.key, item.key)
+                      tabSecondTabsChange(tabs?.secondTabs?.key, item.key)
                     }
                   >
                     {item.label}
@@ -106,7 +106,7 @@ export default memo(function (props: HeaderProps) {
                     size="small"
                     type={secondTab === item.key ? 'primary' : 'text'}
                     onClick={() =>
-                      tabSecondTabsChange(tabs.secondTabs.key, item.key)
+                      tabSecondTabsChange(tabs?.secondTabs?.key, item.key)
                     }
                   >
                     {item.label}

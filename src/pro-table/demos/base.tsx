@@ -84,45 +84,7 @@ export default memo(function () {
           key: '4',
         },
       ],
-    },
-    secondTabs: {
-      key: 'category',
-      onChange: false,
-      title: '商品类目',
-      defaultKey: secondDefaultKey,
-      defaultOpen: true,
-      col: {},
-      data: [
-        {
-          label: '全部',
-          key: '1',
-        },
-        {
-          label: '类目一',
-          key: '2',
-        },
-        {
-          label: '类目二435646623522',
-          key: '3',
-        },
-        {
-          label: '类目三',
-          key: '4',
-        },
-        {
-          label: '类目四3425235',
-          key: '5',
-        },
-        {
-          label: '类目五',
-          key: '6',
-        },
-        {
-          label: '类目六235632624643',
-          key: '7',
-        },
-      ],
-    },
+    }
   };
 
   // 表格行配置

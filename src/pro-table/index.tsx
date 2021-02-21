@@ -157,14 +157,14 @@ export default memo(function (props: propsType): React.ReactElement {
     const secondValue = reqData.search[tabs?.secondTabs?.key || '']
       ? reqData.search[tabs?.secondTabs?.key || '']
       : tabs?.secondTabs?.data.find(
-        item => item.key === tabs?.secondTabs.defaultKey,
+        item => item.key === tabs?.secondTabs?.defaultKey,
       )?.key;
     const reqValue = {
       ...reqData,
       search: { [tabs?.secondTabs?.key || '']: secondValue, [key]: value },
     };
     // const reqValue = { ...reqData, search: { [key]: value } }
-    if (typeof tabs?.firstTabs.onChange === 'function') {
+    if (typeof tabs?.firstTabs?.onChange === 'function') {
       const result = tabs?.firstTabs.onChange(key, value, reqValue);
       result ? setReqData({ ...result }) : setReqData(reqValue);
       return;
@@ -180,15 +180,15 @@ export default memo(function (props: propsType): React.ReactElement {
    */
   const secondTabsChange = (key, value) => {
     // 默认为当前选中的值若无手动选中，则为一级tabs默认值
-    const firstTabsValue = reqData.search[tabs?.firstTabs.key || '']
-      ? reqData.search[tabs?.firstTabs.key || '']
-      : tabs?.firstTabs.data.find(item => item.key === tabs?.firstTabs.defaultKey)
+    const firstTabsValue = reqData.search[tabs?.firstTabs?.key || '']
+      ? reqData.search[tabs?.firstTabs?.key || '']
+      : tabs?.firstTabs?.data?.find(item => item.key === tabs?.firstTabs?.defaultKey)
         ?.key;
     const reqValue = {
       ...reqData,
-      search: { [tabs?.firstTabs.key || '']: firstTabsValue, [key]: value },
+      search: { [tabs?.firstTabs?.key || '']: firstTabsValue, [key]: value },
     };
-    if (typeof tabs?.secondTabs.onChange === 'function') {
+    if (typeof tabs?.secondTabs?.onChange === 'function') {
       const result = tabs?.secondTabs.onChange(key, value, reqValue);
       result ? setReqData({ ...result }) : setReqData(reqValue);
       return;
