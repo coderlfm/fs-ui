@@ -43,13 +43,13 @@ interface tabsItemType {
   defaultKey: string | undefined;
 
   onChange?:
-  | undefined
-  | ((
-    key: string | number | undefined,
-    value: string | number | undefined,
-    reqData: string | number | undefined,
-  ) => any)
-  | boolean;
+    | undefined
+    | ((
+        key: string | number | undefined,
+        value: string | number | undefined,
+        reqData: string | number | undefined,
+      ) => any)
+    | boolean;
 
   title?: string;
 
@@ -66,8 +66,8 @@ interface tabsItemType {
 }
 
 export interface tabsType {
-  firstTabs?: tabsItemType ;
-  secondTabs?: tabsItemType  ;
+  firstTabs?: tabsItemType;
+  secondTabs?: tabsItemType;
 }
 
 /**
@@ -88,64 +88,115 @@ export interface propsType {
 
   /**
    * 行配置
-   */ 
+   */
+
   columns: ColumnsType<object>;
 
   /**
    * tabs配置
-   */ 
+   */
+
   tabs?: tabsType;
 
   /**
    * 表单配置
-   */ 
+   */
+
   formProps: any;
 
   /**
    * 工具栏配置
-   */ 
+   */
+
   tableTools?: {
     /**
      * 工具栏标题
      */
-    title: string,
+    title: string;
     /**
      * 工具栏按钮
      */
-    actions: Array<toolType>,
+    actions: Array<toolType>;
   };
 
   request: any;
 
   /**
    * 搜索前过滤
-   */ 
+   */
+
   preSubmit?: (values: any) => any;
 
   /**
    * 请求地址
-   */ 
+   */
+
   url: string;
 
   /**
    * 自定义请求数据
-   */ 
+   */
+
   requestData?: any;
 
   /**
    * 是否开启选中
-   */ 
+   */
+
   row?: undefined;
 
   /**
    * 唯一key
-   */ 
+   */
+
   rowKey: string | (() => string);
 
   /**
    * 刷新
-   */ 
+   */
+
   reset?: boolean;
 
+  /**
+   * 成功回调
+   */
+  successCb: Function;
 
+  /**
+   * 是否分页
+   * ! 暂时未添加
+   */
+  paginationFlag: boolean;
+
+  /**
+   * 表格其它配置项
+   */
+  otherTableProps: {
+    /**
+     * 行配置
+     */
+
+    columns: ColumnsType<object>;
+
+    /**
+     * 唯一key
+     */
+
+    rowKey: string | (() => string);
+
+    /**
+     * 表格改变
+     */
+    onChange: (pagination: any, filters: any, sorter: any, extra: any) => void;
+
+    /**
+     * 展开项
+     */
+    expandable: any;
+
+    /**
+     * 行点击
+     */
+    onRow: any;
+  };
 }

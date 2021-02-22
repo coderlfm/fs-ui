@@ -22,10 +22,10 @@ const tableDataDefault: tableDataType = {
 };
 
 function onChange(pagination, filters, sorter, extra) {
-  console.log('params', pagination, filters, sorter, extra);
+  // console.log('params', pagination, filters, sorter, extra);
 }
 
-export default memo(function (props: propsType): React.ReactElement {
+export default memo(function(props: propsType): React.ReactElement {
   const {
     tabs,
     title,
@@ -33,6 +33,7 @@ export default memo(function (props: propsType): React.ReactElement {
     preSubmit,
     requestData,
     request,
+    otherTableProps,
   } = props;
 
   const reqDataDefault = {
@@ -57,7 +58,6 @@ export default memo(function (props: propsType): React.ReactElement {
   useEffect(() => {
     setLoading(true);
     initData();
-
   }, [reqData, props.reset]);
 
   useEffect(() => {
@@ -157,8 +157,8 @@ export default memo(function (props: propsType): React.ReactElement {
     const secondValue = reqData.search[tabs?.secondTabs?.key || '']
       ? reqData.search[tabs?.secondTabs?.key || '']
       : tabs?.secondTabs?.data.find(
-        item => item.key === tabs?.secondTabs?.defaultKey,
-      )?.key;
+          item => item.key === tabs?.secondTabs?.defaultKey,
+        )?.key;
     const reqValue = {
       ...reqData,
       search: { [tabs?.secondTabs?.key || '']: secondValue, [key]: value },
@@ -182,8 +182,9 @@ export default memo(function (props: propsType): React.ReactElement {
     // 默认为当前选中的值若无手动选中，则为一级tabs默认值
     const firstTabsValue = reqData.search[tabs?.firstTabs?.key || '']
       ? reqData.search[tabs?.firstTabs?.key || '']
-      : tabs?.firstTabs?.data?.find(item => item.key === tabs?.firstTabs?.defaultKey)
-        ?.key;
+      : tabs?.firstTabs?.data?.find(
+          item => item.key === tabs?.firstTabs?.defaultKey,
+        )?.key;
     const reqValue = {
       ...reqData,
       search: { [tabs?.firstTabs?.key || '']: firstTabsValue, [key]: value },
@@ -237,6 +238,7 @@ export default memo(function (props: propsType): React.ReactElement {
             onChange={onChange}
             loading={loading}
             pagination={pagination}
+            {...otherTableProps}
           />
         </div>
       </div>
@@ -287,14 +289,13 @@ const getTabsInitReq = tabs => {
     tabsReq = { [tabs.firstTabs?.key]: tabs.firstTabs?.data[0]?.key };
   }
 
-  
   //二级tabs默认请求数据
   if (tabs.secondTabs?.defaultKey !== null) {
     tabsReq = {
       ...tabsReq,
       [tabs.secondTabs?.key]: tabs.secondTabs?.data.find(
         item => item.key === tabs.secondTabs.defaultKey,
-        )?.key,
+      )?.key,
     };
   } else {
     tabsReq = {
@@ -302,14 +303,18 @@ const getTabsInitReq = tabs => {
       [tabs.secondTabs?.key]: tabs.secondTabs?.data[0]?.key,
     };
   }
-  
+
   /**
    * 过滤空值
    */
   Object.keys(tabsReq).forEach(item => {
     !tabsReq[item] && delete tabsReq[item];
   });
-  console.log('tabs.secondTabs?.defaultKey: ', tabs.secondTabs?.defaultKey,tabsReq);
+  console.log(
+    'tabs.secondTabs?.defaultKey: ',
+    tabs.secondTabs?.defaultKey,
+    tabsReq,
+  );
   return tabsReq;
 };
 
