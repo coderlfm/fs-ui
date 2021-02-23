@@ -230,6 +230,7 @@ export default memo(function(props: propsType): React.ReactElement {
         <div className="pro-table-body-wrap">
           {tableTools && renderTools(tableTools, selectRows)}
           <Table
+            {...otherTableProps}
             columns={props.columns}
             dataSource={tableData.list}
             rowKey={props.rowKey}
@@ -238,7 +239,6 @@ export default memo(function(props: propsType): React.ReactElement {
             onChange={onChange}
             loading={loading}
             pagination={pagination}
-            {...otherTableProps}
           />
         </div>
       </div>
