@@ -83,29 +83,27 @@ export default memo((props: propsType) => {
       {formProps?.search && renderForm(formProps.search)}
 
       <Form.Item {...tailLayout} className="form-footer">
-        <Space>
-          <Button htmlType="button" onClick={onReset} className="btn-default">
-            {formProps?.config?.reset?.text || '重置'}
-          </Button>
-          <Button type="primary" htmlType="submit" className="btn-primary">
-            {formProps?.config?.submit?.text || '查询'}
-          </Button>
-          {formProps?.config?.otherBtn?.map(item => {
-            return (
-              <Button
-                {...item.btnProps}
-                onClick={() => {
-                  const FormFields = form.getFieldsValue();
-                  item.onBtnChange(FormFields);
-                }}
-                className="btn-primary"
-                key={item}
-              >
-                {item.text}
-              </Button>
-            );
-          })}
-        </Space>
+        <Button htmlType="button" onClick={onReset} className="btn-default">
+          {formProps?.config?.reset?.text || '重置'}
+        </Button>
+        <Button type="primary" htmlType="submit" className="btn-primary">
+          {formProps?.config?.submit?.text || '查询'}
+        </Button>
+        {formProps?.config?.otherBtn?.map(item => {
+          return (
+            <Button
+              {...item.btnProps}
+              onClick={() => {
+                const FormFields = form.getFieldsValue();
+                item.onBtnChange(FormFields);
+              }}
+              className="btn-primary"
+              key={item}
+            >
+              {item.text}
+            </Button>
+          );
+        })}
       </Form.Item>
     </Form>
   );
@@ -141,13 +139,17 @@ const renderForm = search => {
           </Select>
         );
         break;
-        case 'radio':
-          ele = (<Radio.Group {...searchProps}>
-              {
-                  searchProps.enum.map(item => <Radio value={item.value} key={item.value}>{item.label}</Radio>)
-              }
-          </Radio.Group>)
-          break;
+      case 'radio':
+        ele = (
+          <Radio.Group {...searchProps}>
+            {searchProps.enum.map(item => (
+              <Radio value={item.value} key={item.value}>
+                {item.label}
+              </Radio>
+            ))}
+          </Radio.Group>
+        );
+        break;
 
       case 'rangepicker':
         ele = <RangePicker allowClear {...searchProps} />;

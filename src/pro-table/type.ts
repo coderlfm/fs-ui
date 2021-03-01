@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { ReactElement } from 'react/index';
-import { ColumnsType } from 'antd/es/table/Table';
+import { ColumnsType, TableProps } from 'antd/es/table/Table';
+import { PanelRender } from 'rc-table/lib/interface';
 
 export interface tableDataType {
   list: Array<dataType>;
@@ -47,7 +48,7 @@ interface tabsItemType {
     | ((
         key: string | number | undefined,
         value: string | number | undefined,
-        reqData: string | number | undefined,
+        reqData: object,
       ) => any)
     | boolean;
 
@@ -79,18 +80,20 @@ interface toolType {
   render: (selectRows: Array<any>) => ReactElement;
 }
 
-export interface propsType {
+export interface propsType<RecordType extends object = any>
+  extends TableProps<RecordType> {
   /**
    *
    * @description 标题
    */
-  title: string;
+  // @override
+  // title: PanelRender<RecordType>;
 
   /**
    * 行配置
    */
 
-  columns: ColumnsType<object>;
+  // columns: ColumnsType<object>;
 
   /**
    * tabs配置
@@ -101,7 +104,6 @@ export interface propsType {
   /**
    * 表单配置
    */
-
   formProps: any;
 
   /**
@@ -160,18 +162,19 @@ export interface propsType {
   /**
    * 成功回调
    */
-  successCb: Function;
+  successCb?: Function;
 
   /**
    * 是否分页
    * ! 暂时未添加
    */
-  paginationFlag: boolean;
+  paginationFlag?: boolean;
 
   /**
    * 表格其它配置项
    */
-  otherTableProps: {
+  // declare function Table<RecordType extends object = any>(props: TableProps<RecordType>): JSX.Element;
+  otherTableProps?: {
     /**
      * 行配置
      */
@@ -198,5 +201,14 @@ export interface propsType {
      * 行点击
      */
     onRow: any;
+
+    /**
+     * 下拉刷新
+     */
+    pullRefresh: {
+      offsetBottom?: 10;
+      throttleDelay?: number;
+      onChange?: () => void;
+    };
   };
 }

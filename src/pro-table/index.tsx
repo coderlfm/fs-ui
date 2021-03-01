@@ -4,11 +4,13 @@ import React, {
   useEffect,
   useLayoutEffect,
   useRef,
+  useCallback,
 } from 'react';
 import { Table, message, ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 
 import { Form } from '@/index';
+import { throttle, debounce } from '@/utils/utils';
 import ProTableHeader from './Pro-table-header';
 
 import { tableDataType, reqType, propsType } from './type';
@@ -19,6 +21,14 @@ const tableDataDefault: tableDataType = {
   list: [],
   page: 1,
   page_size: 10,
+};
+
+const reqDataDefault = {
+  //请求参数
+  page: 1,
+  page_size: 10,
+  search: {},
+  sort: {},
 };
 
 function onChange(pagination, filters, sorter, extra) {
@@ -34,17 +44,12 @@ export default memo(function(props: propsType): React.ReactElement {
     requestData,
     request,
     otherTableProps,
+    ...other
   } = props;
 
-  const reqDataDefault = {
-    //请求参数
-    page: 1,
-    page_size: 10,
-    search: {},
-    sort: {},
-  };
-
   const tabsReqInit: null | any = useRef(null);
+  const tableWrapRef: null | any = useRef(null); // table wrap
+  const isPullRefresh: null | any = useRef(false); // 是否
 
   const [tableData, setTableData] = useState(tableDataDefault); // 表格数据
   const [selectRows, setSelectRows] = useState([]); // 被选中的行数据对象数组
@@ -81,6 +86,47 @@ export default memo(function(props: propsType): React.ReactElement {
     }
   }, [tabs]);
 
+  const pullRefreshAction = () => {
+    console.log('被执行');
+
+    setReqData({ ...reqData, page: ++reqData.page });
+  };
+
+  const pullRefresh = useRef(
+    debounce(
+      pullRefreshAction,
+      otherTableProps?.pullRefresh?.throttleDelay || 3000,
+    ),
+  );
+
+  /**
+   * 上拉加载
+   * @param e
+   */
+  const onScrollEvent = e => {
+    e.persist();
+
+    if (e.target === null) return;
+
+    // console.log((e.target.scrollTop + e.target.clientHeight), e.target.scrollHeight - (otherTableProps?.pullRefresh?.offsetBottom || 0));
+
+    if (
+      e.target.scrollTop + e.target.clientHeight ===
+      e.target.scrollHeight - (otherTableProps?.pullRefresh?.offsetBottom || 0)
+    ) {
+      // console.info('到底了！');
+      if (otherTableProps?.pullRefresh?.onChange) {
+        otherTableProps.pullRefresh.onChange();
+      } else {
+        // debugger;
+        console.log('pullRefresh', pullRefresh);
+
+        pullRefresh.current();
+        isPullRefresh.current = true;
+      }
+    }
+  };
+
   /**
    * 初始化请求
    * @param data 请求参数，默认为
@@ -99,10 +145,29 @@ export default memo(function(props: propsType): React.ReactElement {
       method: 'post',
       data,
     });
+
     if (res.code === 0) {
-      setTableData({ ...tableData, ...res.data });
+      if (isPullRefresh.current) {
+        isPullRefresh.current = false;
+        setTableData({
+          ...tableData,
+          ...res.data,
+          list: [...tableData.list, ...res.data.list],
+        });
+      } else {
+        setTableData({ ...tableData, ...res.data });
+      }
     } else if (res.code === '0') {
-      setTableData({ ...tableData, ...res.result });
+      if (isPullRefresh.current) {
+        isPullRefresh.current = false;
+        setTableData({
+          ...tableData,
+          ...res.data,
+          list: [...tableData.list, ...res.result.list],
+        });
+      } else {
+        setTableData({ ...tableData, ...res.result });
+      }
     } else {
       message.warning(res.msg || '请求超时');
     }
@@ -130,7 +195,7 @@ export default memo(function(props: propsType): React.ReactElement {
    * @param page_size
    */
   const handlePageChange = (page, page_size) => {
-    console.log(page, page_size);
+    // console.log(page, page_size);
     setReqData({ ...reqData, page, page_size });
   };
 
@@ -209,13 +274,11 @@ export default memo(function(props: propsType): React.ReactElement {
     },
   };
 
-  // console.log('tabs',tabs);
-
   return (
     <ConfigProvider locale={zhCN}>
       <div className="pro-table-wrap">
         <ProTableHeader
-          title={title}
+          title={() => title}
           tabs={tabs}
           firstTabsChange={firstTabsChange}
           secondTabsChange={secondTabsChange}
@@ -227,10 +290,16 @@ export default memo(function(props: propsType): React.ReactElement {
             circle={tabs && tabs.secondTabs ? false : true}
           />
         ) : null}
-        <div className="pro-table-body-wrap">
+        <div
+          className="pro-table-body-wrap"
+          onScrollCapture={e => onScrollEvent(e)}
+          // ref={tableWrapRef}
+        >
           {tableTools && renderTools(tableTools, selectRows)}
+
           <Table
             {...otherTableProps}
+            {...other}
             columns={props.columns}
             dataSource={tableData.list}
             rowKey={props.rowKey}
@@ -238,7 +307,7 @@ export default memo(function(props: propsType): React.ReactElement {
             size="middle"
             onChange={onChange}
             loading={loading}
-            pagination={pagination}
+            pagination={otherTableProps?.pullRefresh ? false : pagination}
           />
         </div>
       </div>
@@ -310,11 +379,11 @@ const getTabsInitReq = tabs => {
   Object.keys(tabsReq).forEach(item => {
     !tabsReq[item] && delete tabsReq[item];
   });
-  console.log(
-    'tabs.secondTabs?.defaultKey: ',
-    tabs.secondTabs?.defaultKey,
-    tabsReq,
-  );
+  // console.log(
+  //   'tabs.secondTabs?.defaultKey: ',
+  //   tabs.secondTabs?.defaultKey,
+  //   tabsReq,
+  // );
   return tabsReq;
 };
 

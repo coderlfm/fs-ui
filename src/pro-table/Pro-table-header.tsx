@@ -1,13 +1,14 @@
 import React, { memo, useState, useEffect } from 'react';
 import { Tabs, Button, Row } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import { PanelRender } from 'rc-table/lib/interface';
 
 import { tabsType } from './type';
 import './pro-table-header.less';
 
 const { TabPane } = Tabs;
-interface HeaderProps {
-  title: string;
+interface HeaderProps<RecordType extends object = any> {
+  title: PanelRender<RecordType>;
   tabs?: tabsType;
   firstTabsChange: (
     key: string | number | undefined,
@@ -19,7 +20,7 @@ interface HeaderProps {
   ) => void;
 }
 
-export default memo(function (props: HeaderProps) {
+export default memo(function(props: HeaderProps) {
   const { title, tabs, firstTabsChange, secondTabsChange } = props;
 
   const [firstTab, setFirstTab] = useState(tabs?.firstTabs?.defaultKey || '1'); // 一级菜单active
@@ -28,13 +29,13 @@ export default memo(function (props: HeaderProps) {
 
   useEffect(() => {
     /// 实现动态修改 二级defaultKey 后不刷新的问题
-      if(tabs?.secondTabs && tabs?.secondTabs?.defaultKey !== secondTab){
-        setSecondTab(tabs?.secondTabs.defaultKey || 1);// 避免ts报错
-      }
-      if(tabs?.firstTabs && tabs?.firstTabs?.defaultKey !== secondTab){
-        setFirstTab(tabs?.firstTabs.defaultKey || '1');// 避免ts报错
-      }
-  }, [tabs])
+    if (tabs?.secondTabs && tabs?.secondTabs?.defaultKey !== secondTab) {
+      setSecondTab(tabs?.secondTabs.defaultKey || 1); // 避免ts报错
+    }
+    if (tabs?.firstTabs && tabs?.firstTabs?.defaultKey !== secondTab) {
+      setFirstTab(tabs?.firstTabs.defaultKey || '1'); // 避免ts报错
+    }
+  }, [tabs]);
 
   /**
    * 一级tabs切换
@@ -46,10 +47,8 @@ export default memo(function (props: HeaderProps) {
       value = parseFloat(value);
     }
     firstTabsChange(key, value);
-    setFirstTab(value+'');
-    // console.log(value);
-    
-    // console.log('一级切换111', tabs?.secondTabs?.defaultKey);
+    setFirstTab(value + '');
+
     setSecondTab(tabs?.secondTabs?.defaultKey || 1);
   };
 
@@ -63,7 +62,7 @@ export default memo(function (props: HeaderProps) {
   };
 
   // console.log('tabs.firstTabs.defaultKey', tabs?.firstTabs.defaultKey);
-  
+
   return (
     <header className="pro-table-header-wrap">
       <h2>{title || ''}</h2>
@@ -73,6 +72,9 @@ export default memo(function (props: HeaderProps) {
             activeKey={firstTab}
             defaultActiveKey={tabs.firstTabs.defaultKey}
             onChange={e => tabFirstTabsChange(tabs?.firstTabs?.key, e)}
+            onTabClick={(key, e) => {
+              console.log('key', key, e);
+            }}
           >
             {tabs.firstTabs.data.map(item => (
               <TabPane tab={item.label} key={item.key} />
@@ -84,33 +86,41 @@ export default memo(function (props: HeaderProps) {
       {tabs && tabs.secondTabs && (
         <section className="second">
           <span>{tabs.secondTabs.title}：</span>
-          <Row  className={rotate ? "second-content second-content-active" : "second-content"} gutter={[0, 16]}>
+          <Row
+            className={
+              rotate ? 'second-content second-content-active' : 'second-content'
+            }
+          >
             {tabs.secondTabs.data.map((item, index) => {
               if (rotate) {
                 return (
-                  <Button
-                    className="second-btn"
-                    size="small"
-                    type={secondTab === item.key ? 'primary' : 'text'}
-                    onClick={() =>
-                      tabSecondTabsChange(tabs?.secondTabs?.key, item.key)
-                    }
-                  >
-                    {item.label}
-                  </Button>
+                  <div className="second-btn-wrap">
+                    <Button
+                      className="second-btn"
+                      size="small"
+                      type={secondTab === item.key ? 'primary' : 'text'}
+                      onClick={() =>
+                        tabSecondTabsChange(tabs?.secondTabs?.key, item.key)
+                      }
+                    >
+                      {item.label}
+                    </Button>
+                  </div>
                 );
               } else {
                 return (
-                  <Button
-                    className="second-btn"
-                    size="small"
-                    type={secondTab === item.key ? 'primary' : 'text'}
-                    onClick={() =>
-                      tabSecondTabsChange(tabs?.secondTabs?.key, item.key)
-                    }
-                  >
-                    {item.label}
-                  </Button>
+                  <div className="second-btn-wrap">
+                    <Button
+                      className="second-btn"
+                      size="small"
+                      type={secondTab === item.key ? 'primary' : 'text'}
+                      onClick={() =>
+                        tabSecondTabsChange(tabs?.secondTabs?.key, item.key)
+                      }
+                    >
+                      {item.label}
+                    </Button>
+                  </div>
                 );
               }
             })}

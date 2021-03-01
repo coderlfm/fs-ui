@@ -41,17 +41,34 @@
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
+.pro-table-header-wrap .second > span,
+.pro-table-header-wrap .second .toggle-wrap {
+  text-align: center;
+  line-height: 48px;
+}
 .pro-table-header-wrap .second .second-content {
   flex-basis: 0;
   flex-grow: 1;
+  height: 48px;
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.pro-table-header-wrap .second .second-content .second-btn-wrap {
+  height: 48px;
+  display: flex;
 }
 .pro-table-header-wrap .second .second-content .second-btn {
   border-radius: 12px;
-  margin: 0 14px;
+  margin: auto;
   color: rgba(0, 0, 0, 0.65);
 }
 .pro-table-header-wrap .second .second-content .ant-btn-primary {
   color: #fff;
+}
+.pro-table-header-wrap .second .second-content-active {
+  height: 100%;
 }
 .pro-table-header-wrap .second .toggle-wrap {
   display: flex;
@@ -61,10 +78,14 @@
 }
 .pro-table-header-wrap .second .toggle-wrap button {
   padding-top: 0;
+  margin-right: 0;
 }
 .pro-table-header-wrap .second .toggle-wrap button .anticon-down {
   line-height: 0;
 }
 .pro-table-header-wrap .second .toggle-wrap button .anticon-down > svg {
   line-height: 0;
+}
+.pro-table-header-wrap .second .toggle-wrap:last-child button {
+  padding-right: 0;
 }

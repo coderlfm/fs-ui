@@ -68,19 +68,30 @@
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 
+    > span,
+    .toggle-wrap {
+      text-align: center;
+      line-height: 48px;
+    }
+
     .second-content {
       flex-basis: 0;
       flex-grow: 1;
-      height: 45px;
+      height: 48px;
       overflow: hidden;
       display: flex;
       width: 100%;
       flex-wrap: wrap;
-      padding-top: 8px;
+      // padding-top: 8px;
+
+      .second-btn-wrap {
+        height: 48px;
+        display: flex;
+      }
 
       .second-btn {
         border-radius: 12px;
-        margin: 0 14px 13px;
+        margin: auto;
         color: rgba(0, 0, 0, 0.65);
       }
 
@@ -89,7 +100,7 @@
       }
     }
 
-    .second-content-active{
+    .second-content-active {
       height: 100%;
     }
 
@@ -102,6 +113,7 @@
 
       button {
         padding-top: 0;
+        margin-right: 0;
         .anticon-down {
           line-height: 0;
           > svg {
@@ -109,6 +121,10 @@
           }
         }
       }
+    }
+
+    .toggle-wrap:last-child button {
+      padding-right: 0;
     }
   }
 }

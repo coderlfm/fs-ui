@@ -1,0 +1,37 @@
+.form-page-layout .head-title {
+  height: 46px;
+  line-height: 46px;
+  padding: 0 24px;
+  background: #1890FF;
+  border-radius: 4px 4px 0px 0px;
+  font-size: 18px;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+.form-page-layout .form-wrapper {
+  margin: 0;
+}
+.form-page-layout .form-wrapper .form-wrap-item {
+  background-color: #fff;
+  margin-bottom: 4px;
+}
+.form-page-layout .form-wrapper .form-wrap-item .sub-title {
+  margin: 16px 0;
+  width: 144px;
+  height: 32px;
+  line-height: 32px;
+  background: #D8D8D8 linear-gradient(315deg, #35FCFF 0%, #0443FC 100%);
+  border-radius: 0px 100px 100px 0px;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-align: center;
+}
+.form-page-layout .form-wrapper .form-wrap-btn {
+  padding: 25px;
+}
+.ant-picker.ant-picker-range {
+  width: 100%;
+}

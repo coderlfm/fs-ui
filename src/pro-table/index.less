@@ -1,12 +1,23 @@
+#pro-table-base {
+  background-color: #f0f2f5;
+}
+
 .pro-table-wrap {
   height: 100%;
+  // background-color: #eee;
   // border: 1px solid blue;
 
+  .pro-table-body-wrap {
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  // 工具栏
   .pro-table-tools {
     background-color: #fff;
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
+    // padding: 12px 0;
     padding-right: 24px;
 
     > .pro-table-tools-title {
@@ -34,8 +45,13 @@
       display: flex;
       justify-content: flex-end;
 
-      > div {
-        margin: 0 5px;
+      button {
+        margin: 12px 5px;
+        border-radius: 4px;
+        padding: 6px 13px;
+      }
+      > div:last-child button {
+        margin-right: 0;
       }
     }
   }

@@ -1,0 +1,55 @@
+#pro-table-base {
+  background-color: #F0F2F5;
+}
+.pro-table-wrap {
+  height: 100%;
+}
+.pro-table-wrap .pro-table-body-wrap {
+  border-radius: 4px;
+  overflow: hidden;
+}
+.pro-table-wrap .pro-table-tools {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 24px;
+}
+.pro-table-wrap .pro-table-tools > .pro-table-tools-title {
+  display: flex;
+  align-items: center;
+}
+.pro-table-wrap .pro-table-tools > .pro-table-tools-title > span:first-child {
+  width: 4px;
+  height: 16px;
+  background: #d8d8d8 linear-gradient(315deg, #35fcff 0%, #0443fc 100%);
+  border-radius: 2px;
+  margin-right: 10px;
+}
+.pro-table-wrap .pro-table-tools > .pro-table-tools-title > span:last-child {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 24px;
+}
+.pro-table-wrap .pro-table-tools .pro-table-tools-actions-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.pro-table-wrap .pro-table-tools .pro-table-tools-actions-wrap button {
+  margin: 12px 5px;
+  border-radius: 4px;
+  padding: 6px 13px;
+}
+.pro-table-wrap .pro-table-tools .pro-table-tools-actions-wrap > div:last-child button {
+  margin-right: 0;
+}
+.pro-table-wrap > .ant-table-wrapper {
+  border-radius: 4px;
+  overflow: hidden;
+}
+.pro-table-wrap .ant-table-pagination {
+  background: #fff;
+  margin: 0;
+  padding: 16px;
+}
